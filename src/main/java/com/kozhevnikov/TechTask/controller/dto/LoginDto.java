@@ -1,12 +1,9 @@
 package com.kozhevnikov.TechTask.controller.dto;
 
-import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
-public class UserDto {
+public class LoginDto {
     private String username;
-    private String status;
-    private String role;
+    private String password;
 }

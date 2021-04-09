@@ -1,27 +1,29 @@
 package com.kozhevnikov.TechTask.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Data
-@Builder(toBuilder = true)
-@NoArgsConstructor
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String login;
-    private String password;
+
+    @Column(name = "first_name")
     private String firstName;
+    @Column(name = "last_name")
     private String lastName;
-    private Integer age;
+    private String username;
+    private String password;
+    @Enumerated(value = EnumType.STRING)
+    private Status status;
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
+
 }

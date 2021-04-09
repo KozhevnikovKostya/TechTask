@@ -13,6 +13,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+
 jwt:
+  header: Authorization
   secret: kokos
+  expiration: 900000
 
