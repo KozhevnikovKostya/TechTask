@@ -1,0 +1,3 @@
+rootProject.name = 'TechTask'
+include 'user-module'
+
