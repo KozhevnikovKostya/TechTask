@@ -2,26 +2,27 @@ package com.kozhevnikov.TechTask.security.model;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public enum  Role {
-    ADMIN(Set.of(Permission.READ_BALANCE)),
-    USER(Set.of(Permission.READ_BALANCE, Permission.CHANGE_BALANCE));
+    ADMIN(List.of(Permission.READ_BALANCE)),
+    USER(List.of(Permission.READ_BALANCE, Permission.CHANGE_BALANCE));
 
-    Set<Permission> permissions;
+    List<Permission> permissions;
 
-    Role(Set<Permission> permissions) {
+    Role(List<Permission> permissions) {
         this.permissions = permissions;
     }
 
-    public Set<Permission> getPermissions() {
+    public List<Permission> getPermissions() {
         return permissions;
     }
 
-    public Set<SimpleGrantedAuthority> getAuthorities(){
+    public List<SimpleGrantedAuthority> getAuthorities(){
         return getPermissions().stream()
                 .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 }

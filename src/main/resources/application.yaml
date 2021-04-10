@@ -7,7 +7,7 @@ spring:
     jdbc-url: jdbc:mysql://localhost:3306/bank?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useUnicode=yes&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: root
+    password: 45673756
     hikari:
       maximum-pool-size: 10000
   jpa:
@@ -17,5 +17,5 @@ spring:
 jwt:
   header: Authorization
   secret: kokos
-  expiration: 900000
+  expiration: 9000000000
 

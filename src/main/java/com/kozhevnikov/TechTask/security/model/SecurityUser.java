@@ -16,6 +16,7 @@ import java.util.List;
 @Builder
 public class SecurityUser implements UserDetails {
 
+    private final Long id;
     private final String username;
     private final String password;
     private final List<SimpleGrantedAuthority> authorities;
@@ -58,14 +59,12 @@ public class SecurityUser implements UserDetails {
     }
 
     public static UserDetails fromUser(User user){
-        return new org.springframework.security.core.userdetails.User(
+        return new SecurityUser(
+                user.getId(),
                 user.getUsername(),
                 user.getPassword(),
-                user.getStatus().equals(Status.ACTIVE),
-                user.getStatus().equals(Status.ACTIVE),
-                user.getStatus().equals(Status.ACTIVE),
-                user.getStatus().equals(Status.ACTIVE),
-                user.getRole().getAuthorities()
+                user.getRole().getAuthorities(),
+                user.getStatus().equals(Status.ACTIVE)
                 );
     }
 }
