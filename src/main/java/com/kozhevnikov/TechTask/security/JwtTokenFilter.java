@@ -1,5 +1,6 @@
 package com.kozhevnikov.TechTask.security;
 
+import com.kozhevnikov.TechTask.security.exception.JwtAuthenticationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -1,4 +1,4 @@
-package com.kozhevnikov.TechTask.model;
+package com.kozhevnikov.TechTask.security.model;
 
 public enum Permission {
 

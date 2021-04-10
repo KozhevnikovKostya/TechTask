@@ -1,4 +1,4 @@
-package com.kozhevnikov.TechTask.model;
+package com.kozhevnikov.TechTask.security.model;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 

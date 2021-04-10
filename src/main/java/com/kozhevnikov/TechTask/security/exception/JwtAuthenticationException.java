@@ -1,4 +1,4 @@
-package com.kozhevnikov.TechTask.security;
+package com.kozhevnikov.TechTask.security.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

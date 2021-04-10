@@ -1,8 +1,7 @@
-package com.kozhevnikov.TechTask.security;
+package com.kozhevnikov.TechTask.security.model;
 
-import com.kozhevnikov.TechTask.model.Status;
+import com.kozhevnikov.TechTask.model.enums.Status;
 import com.kozhevnikov.TechTask.model.User;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;

@@ -1,6 +1,7 @@
 package com.kozhevnikov.TechTask.security;
 
 import com.kozhevnikov.TechTask.repository.UserRepository;
+import com.kozhevnikov.TechTask.security.model.SecurityUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
