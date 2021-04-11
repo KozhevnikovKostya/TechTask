@@ -29,5 +29,9 @@ public class AccountHistory {
     @Enumerated(EnumType.STRING)
     private Operation operation;
 
-    private BigDecimal amount;
+    private BigDecimal totalAmount;
+
+    private BigDecimal changingAmount;
+
+
 }

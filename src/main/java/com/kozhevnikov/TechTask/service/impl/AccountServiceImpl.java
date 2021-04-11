@@ -1,5 +1,6 @@
 package com.kozhevnikov.TechTask.service.impl;
 
+import com.kozhevnikov.TechTask.annotations.AccountHistory;
 import com.kozhevnikov.TechTask.exceptions.BankException;
 import com.kozhevnikov.TechTask.exceptions.ResourceNotFoundException;
 import com.kozhevnikov.TechTask.model.Account;
@@ -34,6 +35,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Transactional
     @Override
+    @AccountHistory
     public Account create(Account account) {
         account.setUser(userService.getUserById(authenticatedUser.getCurrentUserId()));
         account.setTotal(BigDecimal.valueOf(0,2));
@@ -50,6 +52,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Transactional
     @Override
+    @AccountHistory
     public Account ATMOperation(Long id, BigDecimal amount, Operation operation) throws AccessDeniedException {
         Account account = getById(id);
         if (operation.equals(Operation.WITHDRAWAL)){
@@ -60,12 +63,13 @@ public class AccountServiceImpl implements AccountService {
             BigDecimal updatedTotal = account.getTotal().add(amount).setScale(2, RoundingMode.HALF_DOWN);
             account.setTotal(updatedTotal);
         }
-
+        System.out.println("atm");
         return accountRepository.save(account);
     }
 
     @Transactional
     @Override
+    @AccountHistory
     public Account moneyTransfer(BigDecimal amount, Long moneySender, Long moneyRecipient) throws AccessDeniedException {
         Account senderAccount = getById(moneySender);
         checkAccountAmount(senderAccount, amount);
@@ -89,7 +93,8 @@ public class AccountServiceImpl implements AccountService {
 
 
     @Override
-    public Long delete(Long id) {
+    public Long delete(Long id) throws AccessDeniedException {
+        checkAccess(getById(id));
         accountRepository.deleteById(id);
         return id;
     }
@@ -99,7 +104,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     private void checkAccess(Account account) throws AccessDeniedException {
-        if(!account.getUser().getId().equals(authenticatedUser.getCurrentUserId()) || authenticatedUser.hasRole(Role.ADMIN)){
+        if(!account.getUser().getId().equals(authenticatedUser.getCurrentUserId()) && !authenticatedUser.hasRole(Role.ADMIN)){
             throw new AccessDeniedException("You don't have access to this operation");
         }
 

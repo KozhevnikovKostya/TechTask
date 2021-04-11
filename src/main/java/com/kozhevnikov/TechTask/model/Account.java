@@ -14,16 +14,13 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
+//@EntityListeners(AccountListener.class)
 public class Account {
 
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private BigDecimal total;
-
-    @ManyToOne
-    @JoinColumn(name = "currency_id")
-    private Currency currency;
 
     @Enumerated(EnumType.STRING)
     private Status status;

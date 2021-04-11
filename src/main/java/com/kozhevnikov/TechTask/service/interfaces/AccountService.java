@@ -21,6 +21,6 @@ public interface AccountService {
 
     public Account update(Long id, Account account) throws AccessDeniedException;
 
-    public Long delete(Long id);
+    public Long delete(Long id) throws AccessDeniedException;
 
 }

@@ -1,5 +1,5 @@
 package com.kozhevnikov.TechTask.model.enums;
 
 public enum Operation {
-    REFILL, WITHDRAWAL, TRANSFER
+    REFILL, WITHDRAWAL, CREATION
 }

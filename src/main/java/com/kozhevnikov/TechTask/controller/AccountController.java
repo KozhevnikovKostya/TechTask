@@ -49,23 +49,23 @@ public class AccountController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Long> delete(@PathVariable Long id) throws IllegalAccessException {
+    public ResponseEntity<Long> delete(@PathVariable Long id) throws AccessDeniedException {
         return ResponseEntity.ok(accountService.delete(id));
     }
 
     @PostMapping("/{id}/ATM")
     public ResponseEntity<AccountDto> atmOperation(@PathVariable(name = "id") Long accountId,
                                                    @RequestParam Operation operation,
-                                                   @RequestBody BigDecimal amount){
+                                                   @RequestBody BigDecimal amount) throws AccessDeniedException {
 
         Account account = accountService.ATMOperation(accountId, amount, operation);
         return ResponseEntity.ok(accountMapper.toDto(account));
     }
 
-    @PostMapping("{id}/transfer")
-    public ResponseEntity<AccountDto> moneyTransfer(@PathVariable(name = "id")Long senderId,
+    @PostMapping("{senderId}/transfer/{recipientId}")
+    public ResponseEntity<AccountDto> moneyTransfer(@PathVariable(name = "senderId")Long senderId,
                                                     @RequestBody BigDecimal transferAmount,
-                                                    @RequestBody Long recipientAccountId){
+                                                    @PathVariable(name = "recipientId") Long recipientAccountId) throws AccessDeniedException {
         Account account = accountService.moneyTransfer(transferAmount, senderId, recipientAccountId);
         return  ResponseEntity.ok(accountMapper.toDto(account));
 

@@ -50,9 +50,9 @@ public class UserServiceImpl implements UserService {
         User foundUser = userRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException(String.format("User with id: %s doesn't exist", id)));
 
-        updateUserFields(foundUser, user);
+        User result = updateUserFields(foundUser, user);
 
-        return foundUser;
+        return userRepository.save(result);
     }
 
     @Transactional
@@ -64,13 +64,13 @@ public class UserServiceImpl implements UserService {
     }
 
     private void checkAccess(Long id) throws AccessDeniedException {
-        if(authenticatedUser.hasRole(Role.ADMIN) && authenticatedUser.getCurrentUserId().equals(id)){
+        if(!authenticatedUser.hasRole(Role.ADMIN) && !authenticatedUser.getCurrentUserId().equals(id)){
             throw new AccessDeniedException("You don't have access rights for editing");
         }
     }
 
-    private void updateUserFields(User foundUser, User updatedUser){
-        foundUser.toBuilder()
+    private User updateUserFields(User foundUser, User updatedUser){
+        return new User().toBuilder()
                 .id(foundUser.getId())
                 .firstName(Optional.ofNullable(updatedUser.getFirstName()).orElse(foundUser.getFirstName()))
                 .lastName(Optional.ofNullable(updatedUser.getLastName()).orElse(foundUser.getLastName()))

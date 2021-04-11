@@ -2,6 +2,7 @@ package com.kozhevnikov.TechTask.controller.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +20,7 @@ public class FullUserDto {
 
     private Long id;
     private String username;
+    @ApiModelProperty(hidden = true)
     private String password;
     private String firstName;
     private String lastName;

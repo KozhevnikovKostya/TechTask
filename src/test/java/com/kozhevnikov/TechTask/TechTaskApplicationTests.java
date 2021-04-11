@@ -14,7 +14,7 @@ class TechTaskApplicationTests {
 	void contextLoads() {
 		BigDecimal val = new BigDecimal("200.20");
 		BigDecimal ss = new BigDecimal("200.768");
-		System.out.println(val.subtract(ss).setScale(2, RoundingMode.HALF_DOWN));
+		System.out.println(val.compareTo(ss));
 
 	}
 
