@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,7 +45,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User updateUser(Long id, User user) throws IllegalAccessException {
+    public User updateUser(Long id, User user) throws AccessDeniedException {
         checkAccess(id);
         User foundUser = userRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException(String.format("User with id: %s doesn't exist", id)));
@@ -56,20 +57,21 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public Long deleteUser(Long id) throws IllegalAccessException {
+    public Long deleteUser(Long id) throws AccessDeniedException {
         checkAccess(id);
         userRepository.deleteById(id);
         return id;
     }
 
-    private void checkAccess(Long id) throws IllegalAccessException {
-        if(!authenticatedUser.hasRole(Role.ADMIN) || !authenticatedUser.getCurrentUserId().equals(id)){
-            throw new IllegalAccessException("You don't have access rights for editing");
+    private void checkAccess(Long id) throws AccessDeniedException {
+        if(authenticatedUser.hasRole(Role.ADMIN) && authenticatedUser.getCurrentUserId().equals(id)){
+            throw new AccessDeniedException("You don't have access rights for editing");
         }
     }
 
     private void updateUserFields(User foundUser, User updatedUser){
         foundUser.toBuilder()
+                .id(foundUser.getId())
                 .firstName(Optional.ofNullable(updatedUser.getFirstName()).orElse(foundUser.getFirstName()))
                 .lastName(Optional.ofNullable(updatedUser.getLastName()).orElse(foundUser.getLastName()))
                 .role(Optional.ofNullable(updatedUser.getRole()).orElse(foundUser.getRole()))

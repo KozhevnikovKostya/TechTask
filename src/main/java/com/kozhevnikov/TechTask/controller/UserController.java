@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,5 +39,16 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<FullUserDto> getById(@PathVariable Long id){
         return ResponseEntity.ok(userMapper.toFullUserDto(userService.getUserById(id)));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<FullUserDto> update(@PathVariable Long id, @RequestBody FullUserDto userDto) throws AccessDeniedException {
+        User user = userMapper.fromFullDto(userDto);
+        return ResponseEntity.ok(userMapper.toFullUserDto(userService.updateUser(id, user)));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Long> delete(@PathVariable Long id) throws AccessDeniedException {
+        return ResponseEntity.ok(userService.deleteUser(id));
     }
 }

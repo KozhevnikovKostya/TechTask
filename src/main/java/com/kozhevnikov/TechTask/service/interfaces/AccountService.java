@@ -4,6 +4,7 @@ import com.kozhevnikov.TechTask.model.Account;
 import com.kozhevnikov.TechTask.model.enums.Operation;
 
 import java.math.BigDecimal;
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 public interface AccountService {
@@ -12,12 +13,14 @@ public interface AccountService {
 
     public Account create(Account account);
 
-    public Account getById(Long id);
+    public Account getById(Long id) throws AccessDeniedException;
 
-    public Account ATMOperation(BigDecimal amount, Operation operation);
+    public Account ATMOperation(Long id, BigDecimal amount, Operation operation) throws AccessDeniedException;
 
-    public Account moneyTransfer(BigDecimal amount, Long moneySender, Long moneyRecipient);
+    public Account moneyTransfer(BigDecimal amount, Long moneySender, Long moneyRecipient) throws AccessDeniedException;
 
-    public Account update(Account account);
+    public Account update(Long id, Account account) throws AccessDeniedException;
+
+    public Long delete(Long id);
 
 }

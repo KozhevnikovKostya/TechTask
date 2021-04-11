@@ -18,17 +18,9 @@ import javax.validation.constraints.NotNull;
 public class FullUserDto {
 
     private Long id;
-    @NotNull
-//    @JsonProperty("username")
     private String username;
-    @NotNull
-//    @JsonProperty("password")
     private String password;
-    @NotNull
-//    @JsonProperty("firstName")
     private String firstName;
-    @NotNull
-//    @JsonProperty("lastName")
     private String lastName;
     private String status;
     private String role;

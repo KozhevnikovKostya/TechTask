@@ -30,7 +30,7 @@ public class UserMapper {
                 .username(user.getUsername())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
-                .password(passwordEncoder.encode(user.getPassword()))
+                .password(Optional.ofNullable(user.getPassword()).map(passwordEncoder::encode).orElse(null))
                 .status(Optional.ofNullable(user.getStatus()).map(Status::valueOf).orElse(null))
                 .role(Optional.ofNullable(user.getRole()).map(Role::valueOf).orElse(null))
                 .build();
