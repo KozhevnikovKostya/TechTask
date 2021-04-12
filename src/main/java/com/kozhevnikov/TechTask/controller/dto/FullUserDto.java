@@ -17,13 +17,14 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FullUserDto {
-
+    @ApiModelProperty(hidden = true)
     private Long id;
     private String username;
-    @ApiModelProperty(hidden = true)
     private String password;
     private String firstName;
     private String lastName;
+    @ApiModelProperty(hidden = true)
     private String status;
+    @ApiModelProperty(hidden = true)
     private String role;
 }
