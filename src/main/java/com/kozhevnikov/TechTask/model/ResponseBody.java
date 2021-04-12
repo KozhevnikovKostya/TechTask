@@ -8,6 +8,10 @@ import lombok.ToString;
 
 import java.time.LocalDateTime;
 
+
+/**
+ * Entity for exception handling
+ */
 @Builder
 @Getter
 @ToString

@@ -2,7 +2,7 @@ package com.kozhevnikov.TechTask.security.model;
 
 public enum Permission {
 
-    READ_BALANCE("read:balance"), CHANGE_BALANCE("change:balance");
+    READ_BALANCE("read:balance"), CHANGE_BALANCE("change:balance"), MANAGE_USERS("manage:user");
 
     private final String permission;
 

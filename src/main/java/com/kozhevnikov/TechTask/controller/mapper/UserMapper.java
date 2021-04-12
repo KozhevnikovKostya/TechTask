@@ -1,7 +1,7 @@
 package com.kozhevnikov.TechTask.controller.mapper;
 
-import com.kozhevnikov.TechTask.controller.dto.FullUserDto;
-import com.kozhevnikov.TechTask.controller.dto.UserDto;
+import com.kozhevnikov.TechTask.model.dto.FullUserDto;
+import com.kozhevnikov.TechTask.model.dto.UserDto;
 import com.kozhevnikov.TechTask.model.User;
 import com.kozhevnikov.TechTask.model.enums.Status;
 import com.kozhevnikov.TechTask.security.model.Role;

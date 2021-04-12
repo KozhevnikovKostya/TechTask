@@ -9,6 +9,7 @@ import com.kozhevnikov.TechTask.exceptions.ResourceNotFoundException;
 import com.kozhevnikov.TechTask.security.model.Role;
 import com.kozhevnikov.TechTask.service.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,13 +24,15 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final AuthenticatedUser authenticatedUser;
 
+    @PreAuthorize("hasAuthority('manage:user')")
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
     @Override
-    public User getUserById(Long id) {
+    public User getUserById(Long id) throws AccessDeniedException {
+        checkAccess(id);
         return userRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException(String.format("User with id: %s doesn't exist", id)));
     }
@@ -43,7 +46,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-
+    @Transactional
     @Override
     public User updateUser(Long id, User user) throws AccessDeniedException {
         checkAccess(id);
@@ -55,10 +58,10 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(result);
     }
 
+    @PreAuthorize("hasAuthority('manage:user')")
     @Transactional
     @Override
-    public Long deleteUser(Long id) throws AccessDeniedException {
-        checkAccess(id);
+    public Long deleteUser(Long id) {
         userRepository.deleteById(id);
         return id;
     }

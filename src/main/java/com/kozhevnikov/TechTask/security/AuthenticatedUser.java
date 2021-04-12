@@ -12,6 +12,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * component for work with authorized user
+ */
 @Component
 @RequiredArgsConstructor
 public class AuthenticatedUser {

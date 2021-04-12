@@ -1,4 +1,4 @@
-package com.kozhevnikov.TechTask.controller.dto;
+package com.kozhevnikov.TechTask.model.dto;
 
 import lombok.Data;
 

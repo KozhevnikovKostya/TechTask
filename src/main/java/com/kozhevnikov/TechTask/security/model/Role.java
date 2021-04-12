@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public enum  Role {
-    ADMIN(List.of(Permission.READ_BALANCE)),
+    ADMIN(List.of(Permission.READ_BALANCE, Permission.MANAGE_USERS)),
     USER(List.of(Permission.READ_BALANCE, Permission.CHANGE_BALANCE));
 
     List<Permission> permissions;

@@ -1,14 +1,11 @@
-package com.kozhevnikov.TechTask.controller.dto;
+package com.kozhevnikov.TechTask.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-
-import javax.validation.constraints.NotNull;
 
 
 @Data

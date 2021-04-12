@@ -1,6 +1,6 @@
 package com.kozhevnikov.TechTask.controller.mapper;
 
-import com.kozhevnikov.TechTask.controller.dto.AccountDto;
+import com.kozhevnikov.TechTask.model.dto.AccountDto;
 import com.kozhevnikov.TechTask.model.Account;
 import com.kozhevnikov.TechTask.model.enums.Status;
 import com.kozhevnikov.TechTask.security.AuthenticatedUser;
@@ -8,6 +8,7 @@ import com.kozhevnikov.TechTask.service.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.nio.file.AccessDeniedException;
 import java.util.Optional;
 
 @Component
@@ -26,7 +27,7 @@ public class AccountMapper {
                     .build();
     }
 
-    public Account fromDto(AccountDto account){
+    public Account fromDto(AccountDto account) throws AccessDeniedException {
         return Account.builder()
                 .id(Optional.ofNullable(account.getId()).orElse(null))
                 .user(userService.getUserById(authenticatedUser.getCurrentUserId()))

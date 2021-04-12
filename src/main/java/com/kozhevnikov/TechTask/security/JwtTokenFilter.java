@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Custom filter for checking the token
+ */
 @Component
 @RequiredArgsConstructor
 public class JwtTokenFilter extends GenericFilterBean {

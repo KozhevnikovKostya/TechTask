@@ -29,6 +29,9 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Custom global exception handler
+ */
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
@@ -123,21 +126,6 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
         return handleExceptionInternal(exception, responseBody, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
-
-//    @ExceptionHandler(ArgumentNotValidException.class)
-//    protected ResponseEntity<Object> handleArgumentNotValidException(ArgumentNotValidException exception, WebRequest request) {
-//        log.error(exception.getMessage());
-//
-//        var responseBody = ResponseBody.builder()
-//                .timestamp(LocalDateTime.now())
-//                .status(HttpStatus.BAD_REQUEST.value())
-//                .message(ERROR_VALIDATE_DATA)
-//                .error(exception.getMessage())
-//                .path(((ServletWebRequest) request).getRequest().getRequestURI())
-//                .build();
-//
-//        return handleExceptionInternal(exception, responseBody, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
-//    }
 
     @ExceptionHandler(FileSystemException.class)
     protected ResponseEntity<Object> handleConstraintViolationException(FileSystemException exception, WebRequest request) {

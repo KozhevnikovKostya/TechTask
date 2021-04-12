@@ -1,9 +1,12 @@
 package com.kozhevnikov.TechTask.controller;
 
-import com.kozhevnikov.TechTask.controller.dto.LoginDto;
+import com.kozhevnikov.TechTask.model.dto.LoginDto;
 import com.kozhevnikov.TechTask.model.User;
 import com.kozhevnikov.TechTask.repository.UserRepository;
 import com.kozhevnikov.TechTask.security.JwtTokenProvider;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +34,12 @@ public class TokenController {
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
 
-
+    @ApiOperation(value = "Create token")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successfully created token"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+    })
     @PostMapping("/login")
     public ResponseEntity<?> authenticate(@RequestBody LoginDto loginDto){
         try{

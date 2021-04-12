@@ -11,7 +11,9 @@ import com.kozhevnikov.TechTask.security.model.Role;
 import com.kozhevnikov.TechTask.service.interfaces.AccountService;
 import com.kozhevnikov.TechTask.service.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -28,15 +30,17 @@ public class AccountServiceImpl implements AccountService {
     private final UserService userService;
     private final AuthenticatedUser authenticatedUser;
 
+
+    @Transactional(readOnly = true)
     @Override
     public List<Account> getAll() {
-        return accountRepository.findAll();
+        return accountRepository.findAllByUser_Id(authenticatedUser.getCurrentUserId());
     }
 
     @Transactional
     @Override
     @AccountHistory
-    public Account create(Account account) {
+    public Account create(Account account) throws AccessDeniedException {
         account.setUser(userService.getUserById(authenticatedUser.getCurrentUserId()));
         account.setTotal(BigDecimal.valueOf(0,2));
         return accountRepository.save(account);
@@ -50,12 +54,13 @@ public class AccountServiceImpl implements AccountService {
         return account;
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     @Override
     @AccountHistory
-    public Account ATMOperation(Long id, BigDecimal amount, Operation operation) throws AccessDeniedException {
+    public Account atmOperation(Long id, BigDecimal amount, Operation operation) throws AccessDeniedException {
         Account account = getById(id);
-        if (operation.equals(Operation.WITHDRAWAL)){
+        checkAccess(account);
+        if (Operation.WITHDRAWAL.equals(operation)){
             checkAccountAmount(account, amount);
             BigDecimal updatedTotal = account.getTotal().subtract(amount).setScale(2, RoundingMode.HALF_DOWN);
             account.setTotal(updatedTotal);
@@ -63,7 +68,6 @@ public class AccountServiceImpl implements AccountService {
             BigDecimal updatedTotal = account.getTotal().add(amount).setScale(2, RoundingMode.HALF_DOWN);
             account.setTotal(updatedTotal);
         }
-        System.out.println("atm");
         return accountRepository.save(account);
     }
 
@@ -73,14 +77,15 @@ public class AccountServiceImpl implements AccountService {
         Account foundAccount = accountRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException(String.format("Account with id: %s doesn't exist", id)));
         checkAccess(foundAccount);
         updateFields(foundAccount, account);
-        return account;
+        Account result = accountRepository.save(account);
+        return result;
     }
 
 
-
+    @PreAuthorize("hasAuthority('manage:user')")
+    @Transactional
     @Override
-    public Long delete(Long id) throws AccessDeniedException {
-        checkAccess(getById(id));
+    public Long delete(Long id) {
         accountRepository.deleteById(id);
         return id;
     }

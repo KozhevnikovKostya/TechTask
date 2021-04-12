@@ -1,6 +1,6 @@
 package com.kozhevnikov.TechTask.controller.mapper;
 
-import com.kozhevnikov.TechTask.controller.dto.AccountHistoryDto;
+import com.kozhevnikov.TechTask.model.dto.AccountHistoryDto;
 import com.kozhevnikov.TechTask.model.AccountHistory;
 import org.springframework.stereotype.Component;
 

@@ -1,6 +1,5 @@
 package com.kozhevnikov.TechTask.service.impl;
 
-import com.kozhevnikov.TechTask.exceptions.ResourceNotFoundException;
 import com.kozhevnikov.TechTask.model.AccountHistory;
 import com.kozhevnikov.TechTask.repository.AccountHistoryRepository;
 import com.kozhevnikov.TechTask.service.interfaces.AccountHistoryService;

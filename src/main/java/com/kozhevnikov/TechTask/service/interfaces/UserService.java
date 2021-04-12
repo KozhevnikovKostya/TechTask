@@ -6,16 +6,48 @@ import com.kozhevnikov.TechTask.model.User;
 import java.nio.file.AccessDeniedException;
 import java.util.List;
 
+/**
+ *  The service for registration and managing users
+ */
 public interface UserService {
 
+    /**
+     *
+     * @return all users in system, can perform only users with permission managed:user
+     */
     public List<User> getAllUsers();
 
-    public User getUserById(Long id);
+    /**
+     *
+     * @param id
+     * @return requested user
+     * @throws AccessDeniedException if authorized user isn't admin or this account doesn't belong to him
+     */
+    public User getUserById(Long id) throws AccessDeniedException;
 
+    /**
+     *
+     * @param user
+     * @return created  user
+     * @throws BankException if user with same username already exist
+     */
     public User createUser(User user) throws BankException;
 
+    /**
+     *
+     * @param id of updated user
+     * @param user entity with fields for update
+     * @return updated user
+     * @throws AccessDeniedException if authorized user isn't admin or this account doesn't belong to him
+     */
     public User updateUser(Long id, User user) throws  AccessDeniedException;
 
-    public Long deleteUser(Long id) throws AccessDeniedException;
+    /**
+     * delete user by id
+     *
+     * @param id
+     * @return id of deleted user
+     */
+    public Long deleteUser(Long id);
 
 }
