@@ -13,5 +13,5 @@ public interface AccountHistoryService {
      * @param id of account
      * @return list with account operations
      */
-    public List<AccountHistory> getAllHistoryByAccount(Long id);
+    List<AccountHistory> getAllHistoryByAccount(Long id);
 }

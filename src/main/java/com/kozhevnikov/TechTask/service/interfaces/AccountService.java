@@ -15,7 +15,7 @@ public interface AccountService {
     /**
      * @return list of accounts by authorized user
      */
-    public List<Account> getAll();
+     List<Account> getAll();
 
     /**
      * create the account for authorized user
@@ -23,7 +23,7 @@ public interface AccountService {
      * @param account
      * @return created account
      */
-    public Account create(Account account) throws AccessDeniedException;
+     Account create(Account account) throws AccessDeniedException;
 
     /**
      *
@@ -31,7 +31,7 @@ public interface AccountService {
      * @return requested account
      * @throws AccessDeniedException if authorized user isn't admin or this account doesn't belong to him
      */
-    public Account getById(Long id) throws AccessDeniedException;
+     Account getById(Long id) throws AccessDeniedException;
 
     /**
      *
@@ -41,7 +41,7 @@ public interface AccountService {
      * @return account state after operation
      * @throws AccessDeniedException if account doesn't belong to authorized user
      */
-    public Account atmOperation(Long id, BigDecimal amount, Operation operation) throws AccessDeniedException;
+     Account atmOperation(Long id, BigDecimal amount, Operation operation) throws AccessDeniedException;
 
     /**
      * can update only status field
@@ -51,7 +51,7 @@ public interface AccountService {
      * @return updated account
      * @throws AccessDeniedException if account doesn't belong to authorized user
      */
-    public Account update(Long id, Account account) throws AccessDeniedException;
+     Account update(Long id, Account account) throws AccessDeniedException;
 
     /**
      * delete account by id, can perform only users with permission managed:user
@@ -59,6 +59,6 @@ public interface AccountService {
      * @param id
      * @return id of deleted account
      */
-    public Long delete(Long id);
+     Long delete(Long id);
 
 }

@@ -85,14 +85,14 @@ class UserServiceImplTest {
     @Test
     public void accessDeniedTest(){
         when(authenticatedUser.getCurrentUserId()).thenReturn(2L);
-        Exception exception = assertThrows(AccessDeniedException.class,
+        assertThrows(AccessDeniedException.class,
                 () -> userService.updateUser(1L, updatedUser));
     }
 
     @Test
     public void bankDuplicateUsernameTest(){
         when(userRepository.findByUsername(anyString())).thenReturn(Optional.of(updatedUser));
-        Exception exception = assertThrows(BankException.class,
+        assertThrows(BankException.class,
                 () -> userService.createUser(user));
     }
 }

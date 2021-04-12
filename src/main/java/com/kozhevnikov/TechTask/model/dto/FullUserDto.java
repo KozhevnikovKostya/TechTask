@@ -7,13 +7,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+import java.io.Serializable;
+
 
 @Data
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FullUserDto {
+public class FullUserDto implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @ApiModelProperty(hidden = true)
     private Long id;
     private String username;

@@ -36,11 +36,7 @@ public class AccountAdvice {
             changingAmount = BigDecimal.ZERO;
         } else {
             changingAmount = account.getTotal().subtract(lastAccountHistory.getTotalAmount()).setScale(2, RoundingMode.HALF_DOWN);
-            if(changingAmount.compareTo(BigDecimal.ZERO) < 0){
-                operation = Operation.WITHDRAWAL;
-            } else {
-                operation = Operation.REFILL;
-            }
+            operation = changingAmount.compareTo(BigDecimal.ZERO) < 0 ? Operation.WITHDRAWAL : Operation.REFILL;
         }
         var actualAccountHistory = AccountHistory.builder()
                                                  .account(account)

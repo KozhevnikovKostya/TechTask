@@ -15,7 +15,7 @@ public interface UserService {
      *
      * @return all users in system, can perform only users with permission managed:user
      */
-    public List<User> getAllUsers();
+     List<User> getAllUsers();
 
     /**
      *
@@ -23,7 +23,7 @@ public interface UserService {
      * @return requested user
      * @throws AccessDeniedException if authorized user isn't admin or this account doesn't belong to him
      */
-    public User getUserById(Long id) throws AccessDeniedException;
+     User getUserById(Long id) throws AccessDeniedException;
 
     /**
      *
@@ -31,7 +31,7 @@ public interface UserService {
      * @return created  user
      * @throws BankException if user with same username already exist
      */
-    public User createUser(User user) throws BankException;
+     User createUser(User user) throws BankException;
 
     /**
      *
@@ -40,7 +40,7 @@ public interface UserService {
      * @return updated user
      * @throws AccessDeniedException if authorized user isn't admin or this account doesn't belong to him
      */
-    public User updateUser(Long id, User user) throws  AccessDeniedException;
+     User updateUser(Long id, User user) throws  AccessDeniedException;
 
     /**
      * delete user by id
@@ -48,6 +48,6 @@ public interface UserService {
      * @param id
      * @return id of deleted user
      */
-    public Long deleteUser(Long id);
+     Long deleteUser(Long id);
 
 }

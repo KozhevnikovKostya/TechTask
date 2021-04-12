@@ -10,7 +10,7 @@ import java.util.List;
 public interface AccountHistoryRepository extends JpaRepository<AccountHistory, Long> {
 
     @Query(value = "SELECT * FROM account_history where operation_time = (select Max(operation_time) From account_history where account_id = :accountId)", nativeQuery = true)
-    public AccountHistory findLastHistoryByAccountId(@Param("accountId") Long accountId);
+    AccountHistory findLastHistoryByAccountId(@Param("accountId") Long accountId);
 
-    public List<AccountHistory> findAllByAccount_Id(Long accountId);
+    List<AccountHistory> findAllByAccountId(Long accountId);
 }

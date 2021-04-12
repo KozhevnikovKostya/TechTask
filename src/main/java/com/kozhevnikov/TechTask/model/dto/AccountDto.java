@@ -5,12 +5,16 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AccountDto {
+public class AccountDto implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @ApiModelProperty(hidden = true)
     private Long id;
     @ApiModelProperty(hidden = true)

@@ -34,7 +34,7 @@ public class AccountServiceImpl implements AccountService {
     @Transactional(readOnly = true)
     @Override
     public List<Account> getAll() {
-        return accountRepository.findAllByUser_Id(authenticatedUser.getCurrentUserId());
+        return accountRepository.findAllByUserId(authenticatedUser.getCurrentUserId());
     }
 
     @Transactional
@@ -59,13 +59,14 @@ public class AccountServiceImpl implements AccountService {
     @AccountHistory
     public Account atmOperation(Long id, BigDecimal amount, Operation operation) throws AccessDeniedException {
         Account account = getById(id);
+        BigDecimal updatedTotal;
         checkAccess(account);
         if (Operation.WITHDRAWAL.equals(operation)){
             checkAccountAmount(account, amount);
-            BigDecimal updatedTotal = account.getTotal().subtract(amount).setScale(2, RoundingMode.HALF_DOWN);
+            updatedTotal = account.getTotal().subtract(amount).setScale(2, RoundingMode.HALF_DOWN);
             account.setTotal(updatedTotal);
         } else {
-            BigDecimal updatedTotal = account.getTotal().add(amount).setScale(2, RoundingMode.HALF_DOWN);
+            updatedTotal = account.getTotal().add(amount).setScale(2, RoundingMode.HALF_DOWN);
             account.setTotal(updatedTotal);
         }
         return accountRepository.save(account);
@@ -77,8 +78,8 @@ public class AccountServiceImpl implements AccountService {
         Account foundAccount = accountRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException(String.format("Account with id: %s doesn't exist", id)));
         checkAccess(foundAccount);
         updateFields(foundAccount, account);
-        Account result = accountRepository.save(account);
-        return result;
+
+        return accountRepository.save(account);
     }
 
 

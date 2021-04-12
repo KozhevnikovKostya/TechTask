@@ -90,7 +90,7 @@ class AccountServiceImplTest {
     public void atmNotEnoughFunds() throws AccessDeniedException {
         when(authenticatedUser.getCurrentUserId()).thenReturn(1L);
         when(accountRepository.findById(any())).thenReturn(Optional.of(account));
-        Exception exception = assertThrows(BankException.class,
+        assertThrows(BankException.class,
                 () -> accountService.atmOperation(1L, new BigDecimal(900), Operation.WITHDRAWAL));
     }
 
@@ -98,7 +98,7 @@ class AccountServiceImplTest {
     public void atmAccessDenied(){
         when(authenticatedUser.getCurrentUserId()).thenReturn(2L);
         when(accountRepository.findById(any())).thenReturn(Optional.of(account));
-        Exception exception = assertThrows(AccessDeniedException.class,
+        assertThrows(AccessDeniedException.class,
                 () -> accountService.atmOperation(1L, new BigDecimal(100), Operation.WITHDRAWAL));
     }
 }
