@@ -34,7 +34,7 @@ public class AccountServiceImpl implements AccountService {
     @Transactional(readOnly = true)
     @Override
     public List<Account> getAll() {
-        return accountRepository.findAllByUser_Id(authenticatedUser.getCurrentUserId());
+        return accountRepository.findAllByUserId(authenticatedUser.getCurrentUserId());
     }
 
     @Transactional

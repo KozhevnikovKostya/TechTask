@@ -16,6 +16,6 @@ public class AccountHistoryServiceImpl implements AccountHistoryService {
 
     @Override
     public List<AccountHistory> getAllHistoryByAccount(Long id) {
-        return accountHistoryRepository.findAllByAccount_Id(id);
+        return accountHistoryRepository.findAllByAccountId(id);
     }
 }
