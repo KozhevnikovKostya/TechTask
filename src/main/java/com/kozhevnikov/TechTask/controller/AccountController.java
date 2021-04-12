@@ -62,12 +62,4 @@ public class AccountController {
         return ResponseEntity.ok(accountMapper.toDto(account));
     }
 
-    @PostMapping("{senderId}/transfer/{recipientId}")
-    public ResponseEntity<AccountDto> moneyTransfer(@PathVariable(name = "senderId")Long senderId,
-                                                    @RequestBody BigDecimal transferAmount,
-                                                    @PathVariable(name = "recipientId") Long recipientAccountId) throws AccessDeniedException {
-        Account account = accountService.moneyTransfer(transferAmount, senderId, recipientAccountId);
-        return  ResponseEntity.ok(accountMapper.toDto(account));
-
-    }
 }

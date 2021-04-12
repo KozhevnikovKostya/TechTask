@@ -1,4 +1,4 @@
-package com.kozhevnikov.TechTask;
+package com.kozhevnikov.TechTask.helper;
 
 import com.kozhevnikov.TechTask.model.Account;
 import com.kozhevnikov.TechTask.model.AccountHistory;

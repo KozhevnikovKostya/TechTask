@@ -28,7 +28,6 @@ dependencies {
 	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
 	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
 	testCompile group: 'javax.inject', name: 'javax.inject', version: '1'
-	implementation group: 'org.springframework', name: 'spring-aop', version: '5.2.13.RELEASE'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'mysql:mysql-connector-java'
@@ -40,3 +39,5 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+

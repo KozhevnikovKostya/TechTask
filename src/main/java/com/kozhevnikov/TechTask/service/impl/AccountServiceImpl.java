@@ -69,20 +69,6 @@ public class AccountServiceImpl implements AccountService {
 
     @Transactional
     @Override
-    @AccountHistory
-    public Account moneyTransfer(BigDecimal amount, Long moneySender, Long moneyRecipient) throws AccessDeniedException {
-        Account senderAccount = getById(moneySender);
-        checkAccountAmount(senderAccount, amount);
-        Account recipientAccount = accountRepository.findById(moneyRecipient).orElseThrow(() -> new ResourceNotFoundException(String.format("Account with id: %s doesn't exist", moneyRecipient)));
-        senderAccount.setTotal(senderAccount.getTotal().subtract(amount).setScale(2, RoundingMode.HALF_DOWN));
-        recipientAccount.setTotal(recipientAccount.getTotal().add(amount).setScale(2, RoundingMode.HALF_DOWN));
-        accountRepository.saveAll(List.of(senderAccount, recipientAccount));
-        return senderAccount;
-
-    }
-
-    @Transactional
-    @Override
     public Account update(Long id, Account account) throws AccessDeniedException {
         Account foundAccount = accountRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException(String.format("Account with id: %s doesn't exist", id)));
         checkAccess(foundAccount);

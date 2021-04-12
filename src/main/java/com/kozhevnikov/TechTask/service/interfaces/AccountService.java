@@ -17,8 +17,6 @@ public interface AccountService {
 
     public Account ATMOperation(Long id, BigDecimal amount, Operation operation) throws AccessDeniedException;
 
-    public Account moneyTransfer(BigDecimal amount, Long moneySender, Long moneyRecipient) throws AccessDeniedException;
-
     public Account update(Long id, Account account) throws AccessDeniedException;
 
     public Long delete(Long id) throws AccessDeniedException;
