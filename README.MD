@@ -1,4 +1,4 @@
-## HA
+## Bank
 An application to work with the account
 
 #### Technologies
